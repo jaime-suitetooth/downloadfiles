@@ -21,17 +21,21 @@ FILE_NAME_INDEX = 'filename'
 ROOTH_PATH = '.'
 FILES_PATH = './files_sorted'
 
+
+def escape_windows_reserved_char(str):
+    return str.replace('/', '-').replace('\\', '-').replace(':', '-').replace('*', '-').replace('?', '-').replace('"', '-').replace('<', '-').replace('>', '-').replace('|', '-')
+
 class File:
 
     def __init__(self, name: str, id: str) -> None:
         if name is  None or id is None or len(name) == 0 or len(id) == 0:
             return
-        self.name = name
+        self.name = escape_windows_reserved_char(name)
         self.id = id
 
 class Folder:
     def __init__(self, name: str, id:str, parent_id: str, ) -> None:
-        self.name = name
+        self.name = escape_windows_reserved_char(name) 
         self.path = None
         self.files = []
         self.id = id
